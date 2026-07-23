@@ -1,0 +1,12 @@
+# ROS2 colcon build artifacts
+build/
+install/
+log/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Local Claude Code settings
+.claude/
