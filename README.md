@@ -56,6 +56,11 @@ flowchart TD
         SER["serial_sender_node<br/><i>시리얼 송신</i>"]
     end
 
+    subgraph DEBUG["🐞 debug_pkg (선택 · 시각화 전용)"]
+        PVIS["path_visualizer_node<br/><i>경로 오버레이</i>"]
+        YVIS["yolov8_visualizer_node<br/><i>검출 박스/마스크/마커</i>"]
+    end
+
     HW["🚗 driving.ino<br/><i>아두이노 모터/조향 제어</i>"]
 
     CAM -->|image_raw<br/>sensor_msgs/Image| YOLO
@@ -75,11 +80,20 @@ flowchart TD
     MOTION -->|topic_control_signal<br/>MotionCommand| SER
     SER -->|"시리얼: s{조향}l{좌속}r{우속}\n"| HW
 
+    %% ---- 디버그 노드 연결 (점선) ----
+    LANE -.->|roi_image| PVIS
+    PATH -.->|path_planning_result| PVIS
+    PVIS -.->|path_visualized_img| RVIZ["🖥️ RViz / 뷰어"]
+    CAM  -.->|image_raw| YVIS
+    YOLO -.->|detections| YVIS
+    YVIS -.->|yolov8_visualized_img<br/>dgb_bb_markers · dgb_kp_markers| RVIZ
+
     classDef sensor fill:#e3f2fd,stroke:#1565c0,color:#0d1b2a;
     classDef cam fill:#e8f5e9,stroke:#2e7d32,color:#0d1b2a;
     classDef lidar fill:#fff3e0,stroke:#ef6c00,color:#0d1b2a;
     classDef decision fill:#f3e5f5,stroke:#7b1fa2,color:#0d1b2a;
     classDef comm fill:#fce4ec,stroke:#c2185b,color:#0d1b2a;
+    classDef debug fill:#fffde7,stroke:#f9a825,color:#0d1b2a;
     classDef hw fill:#eceff1,stroke:#37474f,color:#0d1b2a;
 
     class CAM,LID sensor;
@@ -87,12 +101,14 @@ flowchart TD
     class LPROC,LOBS lidar;
     class PATH,MOTION decision;
     class SER comm;
+    class PVIS,YVIS,RVIZ debug;
     class HW hw;
 ```
 
-> **디버그 노드**(`debug_pkg`): `path_visualizer_node`, `yolov8_visualizer_node`는 위 파이프라인의
-> `roi_image` / `detections` / `path_planning_result`를 구독하여 RViz용 시각화 이미지·마커를 발행합니다.
-> 주행에는 필수가 아니며 디버깅 시에만 실행합니다.
+> **디버그 노드**(`debug_pkg`, 위 다이어그램에서 점선): `path_visualizer_node`는 `roi_image`와
+> `path_planning_result`를 받아 경로를 오버레이하고, `yolov8_visualizer_node`는 `image_raw`와
+> `detections`를 받아 검출 박스/마스크/키포인트 및 RViz 마커를 발행합니다.
+> 주행 파이프라인에는 관여하지 않으며 디버깅 시에만 실행합니다.
 
 ### 데이터 흐름 요약
 
