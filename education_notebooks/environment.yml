@@ -1,0 +1,13 @@
+name: ros3_edu
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - matplotlib
+  - opencv
+  - jupyter
+  - notebook
+  - ipykernel
+  - pyserial
