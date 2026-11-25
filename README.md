@@ -1,17 +1,23 @@
-# H-Mobility Autonomous Advanced Course — ROS2 Workspace
+<div align="center">
 
-카메라 · 라이다 기반 인지(Perception), 경로/모션 계획(Decision Making), 시리얼 통신(Communication)을
-하나의 `colcon` 모노레포로 구성한 자율주행 워크스페이스입니다. 최종적으로 ROS2 노드가 계산한
-조향/속도 명령을 시리얼로 아두이노(`driving.ino`)에 전달하여 실제 차량을 제어합니다.
+<img src="https://raw.githubusercontent.com/AUTONOMOUS-PCC-Inc/ros3_ws/main/images/ros3-banner.svg" alt="H-Mobility Autonomous Advanced Course — 카메라, 라이다, 판단, 시리얼 통신으로 이어지는 ROS 2 자율주행 워크스페이스" width="100%">
 
-## 목차
-- [시스템 아키텍처](#시스템-아키텍처)
-- [데이터 흐름 요약](#데이터-흐름-요약)
-- [폴더 구조](#폴더-구조)
-- [핵심 파일 상세](#핵심-파일-상세)
-  - [`data_collection.py` — 데이터 수집 & 수동 주행](#data_collectionpy--데이터-수집--수동-주행)
-  - [`driving.ino` — 아두이노 차량 제어 펌웨어](#drivingino--아두이노-차량-제어-펌웨어)
-- [빌드 & 실행](#빌드--실행)
+### 카메라로 차선을 읽고, 라이다로 장애물을 보고, 스스로 조향하는 차를 만든다.
+
+AUTONOMOUS PCC **H-Mobility 자율주행 심화 과정** 실습 워크스페이스입니다.<br>
+카메라·라이다 기반 인지(Perception), 경로/모션 계획(Decision Making), 시리얼 통신(Communication)을
+하나의 `colcon` 모노레포로 구성했습니다.<br>
+ROS2 노드가 계산한 조향/속도 명령은 시리얼로 아두이노(`driving.ino`)에 전달되어 **실제 차량**을 제어합니다.
+
+![Course](https://img.shields.io/badge/과정-H--Mobility%20심화-0B1B33?style=for-the-badge)
+![ROS](https://img.shields.io/badge/ROS%202-colcon-16A34A?style=for-the-badge)
+![Perception](https://img.shields.io/badge/인지-YOLOv8%20·%20TensorRT-1E6FD9?style=for-the-badge)
+![Hardware](https://img.shields.io/badge/제어-Arduino-EAB308?style=for-the-badge)
+![License](https://img.shields.io/badge/License-GPL--3.0-7C3AED?style=for-the-badge)
+
+[**시스템 아키텍처**](#시스템-아키텍처) · [**데이터 흐름**](#데이터-흐름-요약) · [**폴더 구조**](#폴더-구조) · [**핵심 파일**](#핵심-파일-상세) · [**빌드 & 실행**](#빌드--실행)
+
+</div>
 
 ---
 
@@ -294,3 +300,18 @@ python3 src/data_collection/data_collection.py
 > 아두이노에는 `src/control/driving/driving.ino`를 업로드해 두어야 하며,
 > `data_collection.py` · `serial_sender_node`의 시리얼 포트(`/dev/ttyACM0`)가
 > 실제 연결 포트와 일치해야 합니다.
+
+---
+
+## 만든 사람들
+
+<div align="center">
+
+**AUTONOMOUS PCC, Inc.** · (주)오토노머스피씨씨
+
+Field · 선박·항만 무인 하역 및 정밀 측위<br>
+Tech · 어안–라이다 융합 · V2X 관제 · 자율주행 교육
+
+[![Organization](https://img.shields.io/badge/GitHub-AUTONOMOUS--PCC--Inc-0B1B33?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AUTONOMOUS-PCC-Inc)
+
+</div>
